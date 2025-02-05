@@ -6,10 +6,23 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import HomeScreen from './screens/HomeScreen';
 import ListScreen from './screens/ListScreen';
 import DetailScreen from './screens/DetailScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //import each of the Screen for our app
 
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="List of Users" component={ListScreen} />
+      <Stack.Screen name="Details" component={DetailScreen} />
+    </Stack.Navigator>
+  );  
+}
+
+
 
 export default function App() {
 
@@ -37,8 +50,8 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="List"
-          component={ListScreen}
+          name="MyStack"
+          component={MyStack}
           options={{
             title: 'List',
             // tabBarBadge: 1, //add a badge to the icon
@@ -48,6 +61,7 @@ export default function App() {
             },
           }}
         />
+        
       </Tab.Navigator>
     </NavigationContainer>
   );

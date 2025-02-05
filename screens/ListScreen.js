@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, StyleSheet, Text, View, RefreshControl } from 'react-native';
+import { FlatList, StyleSheet, Text, View, RefreshControl, TouchableOpacity } from 'react-native';
 import { Button } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useCallback } from 'react';
@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function ListScreen({navigation}) {
     const [users, setUsers] = useState([]);
     const [refreshing, setRefreshing] = useState(false); //for RefreshControl
+    const nav = useNavigation();
     
     useEffect(()=> {
         setRefreshing(true); 
@@ -37,6 +38,16 @@ export default function ListScreen({navigation}) {
         loadList();
       });
 
+      function goto(routeName, id) {
+        
+        if (routeName) {
+          nav.navigate(routeName, { id: id });
+        } else {
+          nav.popToTop();
+          //back to the beginning of the navigation stack
+        }
+      }
+
       
     return (
         <View>
@@ -47,15 +58,19 @@ export default function ListScreen({navigation}) {
             <FlatList 
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             data={users} 
-            keyExtrator={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => 
-            <ListItem 
-            firstName={item.first_name} 
-            lastName={item.last_name}
-            email={item.email} 
-            lead={<Ionicons name="person-outline" size={20} />} 
-            tail={<Ionicons name="chevron-forward-outline" size={20} />} 
-            />}
+
+              <TouchableOpacity onPress={() => goto('Details', item.id)}>
+              <ListItem 
+              firstName={item.first_name} 
+              lastName={item.last_name}
+              email={item.email} 
+              lead={<Ionicons name="person-outline" size={20} />} 
+              tail={<Ionicons name="chevron-forward-outline" size={20} />} 
+              />
+            </TouchableOpacity>
+            }
             />
          )}
             <StatusBar style="auto" />
