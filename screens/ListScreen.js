@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, StyleSheet, Text, View, RefreshControl, TouchableOpacity } from 'react-native';
-import { Button } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -11,6 +10,9 @@ export default function ListScreen({navigation}) {
     const [users, setUsers] = useState([]);
     const [refreshing, setRefreshing] = useState(false); //for RefreshControl
     const nav = useNavigation();
+
+    const storageKey = 'listOfUsers';
+    const url = 'https://random-data-api.com/api/v2/users?size=20';
     
     useEffect(()=> {
         setRefreshing(true); 
@@ -27,7 +29,7 @@ export default function ListScreen({navigation}) {
             } else {
                 setUsers(0);
             }
-        } catch (error) {
+        } catch (err) {
             console.log('failed to load the list', err);
         }
     }
@@ -35,23 +37,41 @@ export default function ListScreen({navigation}) {
     let onRefresh = useCallback(() => {
         //saves this callback function to use across reloads
         setRefreshing(true);
-        loadList();
+        getData();
+        setRefreshing(false);
       });
 
-      function goto(routeName, id) {
+    function getData(){
+      fetch(url)
+        .then(resp=>{
+          if(!resp.ok) throw new Error(resp.statusText);
+          return resp.json();
+        })
+        .then(jsonObj=>{
+          AsyncStorage.setItem(storageKey, JSON.stringify(jsonObj))
+          setUsers(jsonObj);
+          // setUserNum(jsonObj.length);
+          // console.log(jsonObj.response);        
+        })
+        .catch((err) => {
+          //handle the error
+          console.log('failed to fetch data', err);
+        });
+    }
+
+    function goto(routeName, id) {
         
-        if (routeName) {
-          nav.navigate(routeName, { id: id });
-        } else {
-          nav.popToTop();
-          //back to the beginning of the navigation stack
-        }
+      if (routeName) {
+        nav.navigate(routeName, { id: id });
+      } else {
+        nav.popToTop();
+        //back to the beginning of the navigation stack
       }
+    }
 
       
     return (
         <View>
-        <Text style={styles.heading}>User List</Text>
         {users === 0 ? (
             <Text>No users yet buddy.</Text>
         ) : (
@@ -93,15 +113,6 @@ function ListItem({ firstName, lastName, email = '', lead, tail }) {
 
 
 const styles = StyleSheet.create({
-    input: {
-      borderColor: '#999',
-      borderWidth: 1,
-      height: 40,
-      alignSelf: 'stretch',
-      marginInline: 24,
-      marginBlock: 12,
-      paddingInline: 12,
-    },
     listitem: {
       flex: 1,
       flexDirection: 'row',
@@ -119,6 +130,7 @@ const styles = StyleSheet.create({
     },
     main: {
       flexDirection: 'column',
+      justifyContent: 'space-between',
       paddingInline: 8,
     },
     heading: {

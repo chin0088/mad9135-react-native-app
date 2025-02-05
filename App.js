@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="List of Users" component={ListScreen} />
+      <Stack.Screen name="User List" component={ListScreen} />
       <Stack.Screen name="Details" component={DetailScreen} />
     </Stack.Navigator>
   );  

@@ -59,9 +59,8 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
+      <Text style={styles.heading}>Welcome!</Text>
       <Text style={styles.title}>The number of users is {userNum}.</Text>
-
       <Button style={styles.btn} onPress={clearList}>
         Clear the list
       </Button>
@@ -71,8 +70,13 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+
   btn: {
     marginBlock: 10,
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: 500,
   },
   title: {
     fontSize: 20,

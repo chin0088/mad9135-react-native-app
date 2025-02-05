@@ -40,6 +40,7 @@ export default function DetailScreen({ route }) {
             <Text>No users data.</Text>
         ) : (
             <View>
+                <Image source={{ uri: user.avatar }} style={{ width: 300, height: 300 }} />
                 <Text style={styles.heading}>{user.first_name} {user.last_name}</Text>
                 <Text>User ID: {user.id}</Text>
                 <Text>Email: {user.email}</Text>
