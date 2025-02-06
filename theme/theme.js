@@ -5,12 +5,19 @@ export const theme = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+    },
+    header: {
+        backgroundColor: '#3DD6D0',
+        padding: 16,
+        width: '100%',
+    },
+    headerText: {
+        color: '#FFF',
+        fontSize: 20,
+        fontWeight: 500,
     },
     btn: {
-        color: '#FFF',
-        // backgroundColor: '##eb8334',
-        // borderColor: 'red',
         marginBlock: 20,
     },
     heading: {

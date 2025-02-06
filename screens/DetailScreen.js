@@ -37,6 +37,9 @@ export default function DetailScreen({ route }) {
 
     return (
         <View>
+            <View style={theme.header}>
+            <Text style={theme.headerText}>User Details</Text>
+        </View>
         {user === null ? (
             <Text>No users data.</Text>
         ) : (
@@ -58,56 +61,3 @@ export default function DetailScreen({ route }) {
 
     
 }
-
-
-// const styles = StyleSheet.create({
-//     input: {
-//       borderColor: '#999',
-//       borderWidth: 1,
-//       height: 40,
-//       alignSelf: 'stretch',
-//       marginInline: 24,
-//       marginBlock: 12,
-//       paddingInline: 12,
-//     },
-//     listitem: {
-//       flex: 1,
-//       flexDirection: 'row',
-//       justifyContent: 'flex-start',
-//       alignItems: 'center',
-//       paddingBlock: 4,
-//       borderBottomColor: '#999',
-//       borderBottomWidth: 1,
-//     },
-//     lead: {
-//       paddingInline: 4,
-//     },
-//     tail: {
-//       paddingInline: 4,
-//     },
-//     main: {
-//       flexDirection: 'column',
-//       paddingInline: 8,
-//     },
-//     heading: {
-//         fontSize: 20,
-//         fontWeight: 500,
-//     },
-//     title: {
-//       fontWeight: 500,
-//     },
-//     subtitle: {
-//       fontWeight: 300,
-//     },
-//     flatlist: {
-//       width: '100%',
-//       marginBlock: 12,
-//     },
-//     container: {
-//       flex: 1,
-//       backgroundColor: '#fff',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       paddingBlockStart: 80 /* instead of safearea... cuz I'm lazy */,
-//     },
-//   });

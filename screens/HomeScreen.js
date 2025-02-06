@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, RefreshControl } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { useCallback } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -69,33 +68,19 @@ export default function HomeScreen() {
 
 
   return (
+
     <View style={theme.container}>
-      <Text style={theme.heading}>Welcome!</Text>
-      <Text style={theme.content}>The number of users is {userNum}.</Text>
-      <Button style={theme.btn} onPress={clearList}>
-        Clear the list
-      </Button>
-      <StatusBar style="auto" />
+      <View style={theme.header}>
+        <Text style={theme.headerText}>Random User Data</Text>
+      </View>
+        <Text style={theme.heading}>Welcome!</Text>
+        <Text style={theme.content}>The number of users is {userNum}.</Text>
+        <Button 
+        color="#23a49f"
+        style={theme.btn} onPress={clearList}>
+          Clear the list
+        </Button>
+        <StatusBar style="auto" />
     </View>
   );
 }
-
-// const styles = StyleSheet.create({
-
-//   btn: {
-//     marginBlock: 10,
-//   },
-//   heading: {
-//     fontSize: 20,
-//     fontWeight: 500,
-//   },
-//   title: {
-//     fontSize: 20,
-//   },
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
