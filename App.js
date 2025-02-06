@@ -16,6 +16,7 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
+      {/* <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} /> */}
       <Stack.Screen name="User List" component={ListScreen} />
       <Stack.Screen name="Details" component={DetailScreen} />
     </Stack.Navigator>
@@ -49,6 +50,7 @@ export default function App() {
             },
           }}
         />
+
         <Tab.Screen
           name="MyStack"
           component={MyStack}

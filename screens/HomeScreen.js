@@ -1,9 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, RefreshControl } from 'react-native';
 import { Button } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
+import { useCallback } from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { theme } from '../theme/theme';
 
 export default function HomeScreen() {
   // props children, props.route
@@ -29,7 +33,14 @@ export default function HomeScreen() {
     }
   };
 
+  // let onRefresh = useCallback(()=> {
+  //   loadStorage();
+  // });
+
+
   function getData(){
+    console.log('start fetching');
+    
     fetch(url)
       .then(resp=>{
         if(!resp.ok) throw new Error(resp.statusText);
@@ -58,10 +69,10 @@ export default function HomeScreen() {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Welcome!</Text>
-      <Text style={styles.title}>The number of users is {userNum}.</Text>
-      <Button style={styles.btn} onPress={clearList}>
+    <View style={theme.container}>
+      <Text style={theme.heading}>Welcome!</Text>
+      <Text style={theme.content}>The number of users is {userNum}.</Text>
+      <Button style={theme.btn} onPress={clearList}>
         Clear the list
       </Button>
       <StatusBar style="auto" />
@@ -69,22 +80,22 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
 
-  btn: {
-    marginBlock: 10,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 500,
-  },
-  title: {
-    fontSize: 20,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+//   btn: {
+//     marginBlock: 10,
+//   },
+//   heading: {
+//     fontSize: 20,
+//     fontWeight: 500,
+//   },
+//   title: {
+//     fontSize: 20,
+//   },
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
